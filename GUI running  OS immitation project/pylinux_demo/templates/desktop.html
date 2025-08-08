@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PyLinux Desktop</title>
+    <script>
+        function openApp(endpoint) {
+            fetch(endpoint)
+                .then(res => {
+                    if (!res.ok) alert("Failed to launch " + endpoint);
+                })
+                .catch(err => alert("Error: " + err));
+        }
+
+        function openAssistant() {
+            const win = document.getElementById('assistant-window');
+            win.style.display = win.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/static/background.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 10px;
+        }
+
+        .taskbar button {
+            padding: 6px 16px;
+            font-size: 14px;
+            background-color: #3a3a3a;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .taskbar button:hover {
+            background-color: #5a5a5a;
+        }
+
+        #assistant-window {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+            width: 300px;
+            height: 200px;
+            background-color: #1e1e1e;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px black;
+            padding: 10px;
+            display: none;
+        }
+
+        #assistant-window h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+
+        #assistant-window p {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        #assistant-window .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #assistant-window .close-btn:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="taskbar">
+        <button onclick="openApp('/terminal')">Terminal</button>
+        <button onclick="openApp('/notes')">Notes</button>
+        <button onclick="openApp('/files')">Files</button>
+        <button onclick="openAssistant()">ChatGPT Assistant</button>
+    </div>
+
+    <div id="assistant-window">
+        <button class="close-btn" onclick="openAssistant()">×</button>
+        <h3>ChatGPT Assistant</h3>
+        <p>Hello! I'm here to help. Type a command or question in a future version!</p>
+    </div>
+</body>
+</html>
